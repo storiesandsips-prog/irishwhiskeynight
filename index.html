@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Irish Whiskey Night</title>
+<title>Irish Whiskey Night | Taste Irish Whiskey Live on the Last Thursday</title>
+<meta name="description" content="The last Thursday of every month. Join Irish Whiskey Night live for three Irish whiskeys, the makers behind them, and a shared tasting experience from wherever you are." />
+<meta property="og:title" content="Irish Whiskey Night – Taste Irish Whiskey Live" />
+<meta property="og:description" content="The last Thursday of every month. Join live for free—or taste along with this month’s 3-dram Irish whiskey kit." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://irishwhiskeynight.com/" />
+<meta property="og:image" content="https://irishwhiskeynight.com/social-share.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Irish Whiskey Night – Taste Irish Whiskey Live" />
+<meta name="twitter:description" content="The last Thursday of every month. Join live for free—or taste along with this month’s 3-dram Irish whiskey kit." />
+<meta name="twitter:image" content="https://irishwhiskeynight.com/social-share.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -598,6 +608,100 @@
     margin-bottom: 1.5rem;
   }
 
+
+
+  /* ── WATCH OR TASTE ── */
+  .watch-taste {
+    background: var(--forest);
+    border-top: 1px solid rgba(201,125,42,0.12);
+    border-bottom: 1px solid rgba(201,125,42,0.12);
+  }
+
+  .choice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .choice-card {
+    border: 1px solid rgba(201,125,42,0.18);
+    padding: 2.5rem;
+    background: rgba(13,26,18,0.45);
+  }
+
+  .choice-card.featured {
+    border-color: rgba(232,168,58,0.45);
+    background: linear-gradient(145deg, rgba(201,125,42,0.16), rgba(13,26,18,0.55));
+    box-shadow: 0 0 40px rgba(201,125,42,0.08);
+  }
+
+  .choice-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+
+  .choice-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+
+  .choice-card p {
+    color: var(--smoke);
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-bottom: 1.6rem;
+  }
+
+  .choice-note {
+    color: var(--gold) !important;
+    font-style: italic;
+    font-size: 1rem !important;
+  }
+
+  /* ── LIVESTREAM ── */
+  .livestream {
+    background: var(--midnight);
+    text-align: center;
+  }
+
+  .livestream .container { max-width: 800px; }
+
+  .livestream p {
+    color: var(--smoke);
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .live-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .social-proof {
+    background: var(--midnight);
+    text-align: center;
+    padding: 4.5rem 2rem;
+    border-top: 1px solid rgba(201,125,42,0.1);
+  }
+
+  .social-proof p {
+    color: var(--smoke);
+    font-size: 1.35rem;
+    font-style: italic;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
   /* ── FOOTER CTA ── */
   .footer-cta {
     background: var(--forest);
@@ -663,7 +767,7 @@
     }
     .what-visual { display: none; }
 
-    .lineup-grid, .steps {
+    .lineup-grid, .steps, .choice-grid {
       grid-template-columns: 1fr;
     }
 
@@ -684,7 +788,7 @@
 <!-- NAV -->
 <nav>
   <span class="nav-logo">Irish Whiskey Night</span>
-  <a href="https://threedrams.com/ie/join-the-club/" class="nav-cta">Get the Kit</a>
+  <a href="https://threedrams.com/ie/join-the-club/" class="nav-cta">Taste Along</a>
 </nav>
 
 <!-- ── HERO ── -->
@@ -698,7 +802,8 @@
   </h1>
 
   <p class="hero-sub">
-    Taste Irish whiskey together — live.
+    Join live — or taste along.<br>
+    <span style="font-style:normal;color:var(--cream);">Hundreds already gather each month. You’re invited.</span>
   </p>
 
   <div class="hero-ctas">
@@ -747,10 +852,10 @@
     <div class="what-body reveal">
       <div class="section-rule"></div>
       <p class="section-eyebrow">What is Irish Whiskey Night?</p>
-      <h2>Once a month,<br><em>Ireland pours together.</em></h2>
+      <h2>A shared whiskey experience,<br><em>one Thursday at a time.</em></h2>
       <p>Once a month, people across Ireland — and around the world — sit down to taste Irish whiskey <strong>together</strong>.</p>
-      <p>Three whiskeys. The makers behind them. One live experience.</p>
-      <p>Join with a tasting kit, or tune in and be part of it.</p>
+      <p>Three drams. The makers behind them. One live experience.</p>
+      <p>Join with this month’s tasting kit, or tune in free and be part of the night.</p>
     </div>
     <div class="what-visual reveal reveal-delay-1">
       <div class="glass-icon-wrap">
@@ -789,7 +894,7 @@
     <div class="reveal">
       <div class="section-rule"></div>
       <p class="section-eyebrow">This Month's Lineup</p>
-      <h2>This Month's <em>Whiskeys</em></h2>
+      <h2>Taste These <em>Live</em></h2>
     </div>
 
     <div class="lineup-grid">
@@ -803,7 +908,7 @@
           <rect x="14" y="85" width="32" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(201,125,42,0.3)" stroke-width="0.8"/>
         </svg>
         <h3 class="whiskey-name">McConnell's Cognac Cask</h3>
-        <p class="whiskey-desc">A rich, sherry-led classic</p>
+        <p class="whiskey-desc">A limited monthly pour to discover live</p>
       </div>
 
       <!-- Whiskey 2 -->
@@ -816,7 +921,7 @@
           <rect x="16" y="80" width="28" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(232,168,58,0.3)" stroke-width="0.8"/>
         </svg>
         <h3 class="whiskey-name">Dunville's Three Crowns Sherry Cask</h3>
-        <p class="whiskey-desc">Update with this month's dram</p>
+        <p class="whiskey-desc">Update with this month’s dram and maker</p>
       </div>
 
       <!-- Whiskey 3 -->
@@ -829,12 +934,12 @@
           <rect x="12" y="90" width="36" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(201,125,42,0.28)" stroke-width="0.8"/>
         </svg>
         <h3 class="whiskey-name">Dingle Single Pot Still</h3>
-        <p class="whiskey-desc">Update with this month's dram</p>
+        <p class="whiskey-desc">Update with this month’s dram and maker</p>
       </div>
     </div>
 
     <div class="lineup-cta reveal">
-      <p>Taste along with us on the night — delivered to your door.</p>
+      <p>Most people don’t just watch — they taste. Get the three drams delivered and pour along with the makers live.</p>
       <a href="https://threedrams.com/ie/join-the-club/" class="btn-primary"><span>Taste Along With Us → Get the Kit</span></a>
     </div>
   </div>
@@ -854,20 +959,20 @@
         <div class="step-connector"></div>
         <div class="step-num">1</div>
         <h3 class="step-title">The Pour</h3>
-        <p class="step-body">Taste 3 Irish whiskeys live, together — guided pour by pour.</p>
+        <p class="step-body">Pour three Irish whiskeys at home, in the pub, or wherever you’re joining from.</p>
       </div>
 
       <div class="step reveal reveal-delay-2">
         <div class="step-connector"></div>
         <div class="step-num">2</div>
         <h3 class="step-title">Meet the Makers</h3>
-        <p class="step-body">Hear directly from the people behind the bottles — their story, their craft.</p>
+        <p class="step-body">Spend time with the people behind the bottles — their stories, choices, and craft.</p>
       </div>
 
       <div class="step reveal reveal-delay-3">
         <div class="step-num">3</div>
         <h3 class="step-title">The Conversation</h3>
-        <p class="step-body">Stories, questions, and what's happening in Irish whiskey right now.</p>
+        <p class="step-body">Ask questions, share reactions, and hear what’s happening in Irish whiskey right now.</p>
       </div>
     </div>
   </div>
@@ -885,19 +990,69 @@
 
     <p class="why-copy reveal reveal-delay-1">
       <strong>It's not a class. It's not a lecture.</strong><br>
-      It's good whiskey, good stories, and people enjoying it together.
+      It’s good whiskey, good stories, and people enjoying Irish whiskey at the same time.
     </p>
 
     <p class="why-detail reveal reveal-delay-2">
-      Some join from their kitchen. Some from their local pub.<br>
+      Some join from their kitchen. Some from their local pub. Some simply tune in to watch.<br>
       All part of the same night.
     </p>
 
     <div class="reveal reveal-delay-3">
       <a href="https://threedrams.com/ie/join-the-club/" class="btn-primary"><span>Get This Month's Kit</span></a>
       &nbsp;&nbsp;
-      <a href="#" class="btn-secondary" id="why-livestream-btn" style="display:inline-block;margin-top:0.5rem;">Join the Livestream — Free</a>
+      <a href="#livestream" class="btn-secondary" id="why-livestream-btn" style="display:inline-block;margin-top:0.5rem;">Join the Livestream — Free</a>
     </div>
+  </div>
+</section>
+
+
+<!-- ── WATCH OR TASTE ── -->
+<section class="watch-taste">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-rule"></div>
+      <p class="section-eyebrow">Two Ways to Join</p>
+      <h2>Watch — or <em>Taste Along</em></h2>
+    </div>
+
+    <div class="choice-grid">
+      <div class="choice-card reveal reveal-delay-1">
+        <p class="choice-kicker">Free</p>
+        <h3>Join the Livestream</h3>
+        <p>Watch Irish Whiskey Night live from anywhere and be part of the conversation.</p>
+        <a href="#livestream" class="btn-secondary">Watch Live</a>
+      </div>
+
+      <div class="choice-card featured reveal reveal-delay-2">
+        <p class="choice-kicker">Recommended</p>
+        <h3>Taste Along Properly</h3>
+        <p>Get this month’s 3-dram kit and taste each whiskey with the makers as they guide you through the night.</p>
+        <p class="choice-note">The difference? You’re not just watching — you’re tasting with the makers.</p>
+        <a href="https://threedrams.com/ie/join-the-club/" class="btn-primary"><span>Get This Month’s Kit</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LIVESTREAM ── -->
+<section class="livestream" id="livestream">
+  <div class="container reveal">
+    <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
+    <p class="section-eyebrow" style="text-align:center;">Watch Live</p>
+    <h2>Join the Next <em>Irish Whiskey Night</em></h2>
+    <p>The livestream will be available on Three Drams channels. Add your final YouTube and Facebook links below before publishing.</p>
+    <div class="live-buttons">
+      <a href="https://www.youtube.com/" class="btn-primary"><span>Watch on YouTube</span></a>
+      <a href="https://www.facebook.com/" class="btn-secondary">Watch on Facebook</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF ── -->
+<section class="social-proof">
+  <div class="container reveal">
+    <p>Hundreds already join each month. We’re building something bigger for Irish whiskey — one night, one pour, and one story at a time.</p>
   </div>
 </section>
 
@@ -905,15 +1060,18 @@
 <section class="footer-cta">
   <div class="container reveal">
     <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
-    <h2>Pour yourself in.<br><em>We'll see you Thursday.</em></h2>
-    <p>The last Thursday of every month. Ireland's own whiskey night.</p>
-    <a href="https://threedrams.com/ie/join-the-club/" class="btn-primary"><span>Get This Month's Tasting Kit</span></a>
+    <h2>Don’t miss this month’s<br><em>Irish Whiskey Night.</em></h2>
+    <p>The last Thursday of every month. Join live — or taste along properly.</p>
+    <div class="hero-ctas" style="opacity:1;animation:none;margin-bottom:0;">
+      <a href="https://threedrams.com/ie/join-the-club/" class="btn-primary"><span>Get This Month’s Tasting Kit</span></a>
+      <a href="#livestream" class="btn-secondary">Watch Live — Free</a>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 Irish Whiskey Night &nbsp;·&nbsp; <a href="#">irishwhiskeynight.com</a> &nbsp;·&nbsp; Made with love for Irish whiskey</p>
+  <p>© 2026 Irish Whiskey Night &nbsp;·&nbsp; <a href="#">irishwhiskeynight.com</a> &nbsp;·&nbsp; Made with love for Irish whiskey</p>
 </footer>
 
 <script>
