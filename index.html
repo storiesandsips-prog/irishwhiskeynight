@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Irish Whiskey Night</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --midnight: #0d1a12;
+    --forest: #1a2e1f;
+    --moss: #2c4a30;
+    --amber: #c97d2a;
+    --gold: #e8a83a;
+    --cream: #f5ede0;
+    --parchment: #f0e4ce;
+    --smoke: #b8c4b1;
+    --text: #e8ddd0;
+    --muted: #8a9e86;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--midnight);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: linear-gradient(to bottom, rgba(13,26,18,0.97), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .nav-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    text-decoration: none;
+    border: 1px solid rgba(201,125,42,0.4);
+    padding: 0.5rem 1.2rem;
+    transition: all 0.3s;
+  }
+  .nav-cta:hover { background: rgba(201,125,42,0.15); border-color: var(--amber); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 5rem;
+    overflow: hidden;
+  }
+
+  /* Radial amber glow */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    height: 60vw;
+    background: radial-gradient(ellipse, rgba(201,125,42,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Diagonal decorative lines */
+  .hero-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.12;
+  }
+  .hero-lines::before {
+    content: '';
+    position: absolute;
+    top: 15%; left: -5%;
+    width: 110%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    transform: rotate(-8deg);
+  }
+  .hero-lines::after {
+    content: '';
+    position: absolute;
+    bottom: 20%; left: -5%;
+    width: 110%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--amber), transparent);
+    transform: rotate(-8deg);
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 9vw, 7.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.35s forwards;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+    color: var(--smoke);
+    font-style: italic;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  /* CTA buttons */
+  .hero-ctas {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.65s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.1rem 2.4rem;
+    background: var(--amber);
+    color: var(--midnight);
+    font-weight: 500;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .btn-primary:hover::before { transform: scaleX(1); }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-secondary {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.1rem 2.4rem;
+    color: var(--cream);
+    border: 1px solid rgba(245,237,224,0.3);
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--cream); background: rgba(245,237,224,0.07); }
+
+  /* Urgency / countdown */
+  .hero-urgency {
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+
+  .event-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .event-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .countdown {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cd-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,125,42,0.2);
+    padding: 0.7rem 1.1rem;
+    min-width: 70px;
+  }
+
+  .cd-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+  }
+
+  .cd-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  .cd-sep {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: rgba(201,125,42,0.4);
+    margin-top: -0.4rem;
+  }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s forwards;
+  }
+  .scroll-hint span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .scroll-arrow {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--amber), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(0.8); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    position: relative;
+    padding: 7rem 2rem;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-rule {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(to right, var(--amber), var(--gold));
+    margin-bottom: 1.5rem;
+  }
+
+  .section-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.2rem;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 2rem;
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ── WHAT IT IS ── */
+  .what-it-is {
+    background: var(--forest);
+  }
+
+  .what-it-is .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .what-body p {
+    font-size: 1.25rem;
+    color: var(--smoke);
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .what-body p strong {
+    color: var(--cream);
+    font-weight: 400;
+  }
+
+  /* Decorative whiskey visual */
+  .what-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .glass-icon-wrap {
+    position: relative;
+    width: 220px;
+    height: 300px;
+  }
+
+  .glass-glow {
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(ellipse, rgba(201,125,42,0.25), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .three-glasses {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    position: relative;
+    z-index: 2;
+  }
+
+  .glass-svg {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 12px rgba(201,125,42,0.4));
+    transition: transform 0.4s;
+  }
+  .glass-svg:hover { transform: translateY(-6px); }
+  .glass-svg:nth-child(2) { transform: translateY(-14px); }
+  .glass-svg:nth-child(2):hover { transform: translateY(-20px); }
+
+  /* ── LINEUP ── */
+  .lineup {
+    background: var(--midnight);
+    border-top: 1px solid rgba(201,125,42,0.12);
+  }
+
+  .lineup-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .whiskey-card {
+    border: 1px solid rgba(201,125,42,0.18);
+    padding: 2.5rem 2rem;
+    background: linear-gradient(145deg, rgba(44,74,48,0.15), rgba(13,26,18,0.8));
+    text-align: center;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .whiskey-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--amber), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+  .whiskey-card:hover { background: linear-gradient(145deg, rgba(44,74,48,0.3), rgba(13,26,18,0.9)); }
+  .whiskey-card:hover::before { transform: scaleX(1); }
+
+  .whiskey-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .bottle-placeholder {
+    width: 70px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+  }
+
+  .bottle-svg {
+    filter: drop-shadow(0 0 16px rgba(232,168,58,0.35));
+  }
+
+  .whiskey-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .whiskey-desc {
+    font-size: 1rem;
+    color: var(--muted);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .lineup-cta {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(201,125,42,0.1);
+  }
+
+  .lineup-cta p {
+    font-size: 1.1rem;
+    color: var(--smoke);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-it-works {
+    background: var(--forest);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 3.5rem;
+  }
+
+  .step {
+    position: relative;
+    padding-top: 1rem;
+  }
+
+  .step-connector {
+    position: absolute;
+    top: 2.5rem;
+    left: calc(100% - 1.5rem);
+    width: calc(3rem);
+    height: 1px;
+    background: linear-gradient(to right, rgba(201,125,42,0.5), transparent);
+    z-index: 1;
+  }
+
+  .step:last-child .step-connector { display: none; }
+
+  .step-num {
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid rgba(201,125,42,0.5);
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+  }
+
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+
+  .step-body {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── WHY PEOPLE JOIN ── */
+  .why {
+    background: var(--midnight);
+    text-align: center;
+    border-top: 1px solid rgba(201,125,42,0.1);
+    border-bottom: 1px solid rgba(201,125,42,0.1);
+  }
+
+  .why .container { max-width: 760px; }
+
+  .why-copy {
+    font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+    line-height: 1.75;
+    color: var(--smoke);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .why-copy strong {
+    color: var(--cream);
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .why-detail {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-bottom: 3rem;
+  }
+
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    color: rgba(201,125,42,0.15);
+    line-height: 0.5;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── FOOTER CTA ── */
+  .footer-cta {
+    background: var(--forest);
+    text-align: center;
+    padding: 6rem 2rem;
+  }
+
+  .footer-cta h2 {
+    margin-bottom: 1rem;
+  }
+
+  .footer-cta p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(0,0,0,0.5);
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  footer a { color: var(--amber); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.22s; }
+  .reveal-delay-3 { transition-delay: 0.34s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+
+    .what-it-is .container {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .what-visual { display: none; }
+
+    .lineup-grid, .steps {
+      grid-template-columns: 1fr;
+    }
+
+    .step-connector { display: none; }
+
+    .hero-ctas { flex-direction: column; align-items: center; }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 5rem 1.5rem; }
+    .cd-unit { min-width: 56px; padding: 0.5rem 0.7rem; }
+    .cd-num { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Irish Whiskey Night</span>
+  <a href="#kit" class="nav-cta">Get the Kit</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-lines"></div>
+
+  <p class="hero-eyebrow">The Last Thursday of Every Month</p>
+
+  <h1 class="hero-headline">
+    Ireland's<br><em>Whiskey Night</em>
+  </h1>
+
+  <p class="hero-sub">
+    Taste Irish whiskey together — live.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#kit" class="btn-primary" id="hero-kit-btn"><span>Get This Month's Tasting Kit</span></a>
+    <a href="#livestream" class="btn-secondary">Join the Livestream — Free</a>
+  </div>
+
+  <div class="hero-urgency">
+    <p class="event-label">Next Event</p>
+    <p class="event-date" id="event-date-display">Loading…</p>
+    <div style="display:flex;align-items:center;gap:0.4rem;justify-content:center;margin-bottom:0.5rem;">
+      <span style="font-family:'DM Mono',monospace;font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Live in:</span>
+    </div>
+    <div class="countdown">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-days">00</span>
+        <span class="cd-label">Days</span>
+      </div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-hours">00</span>
+        <span class="cd-label">Hrs</span>
+      </div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-mins">00</span>
+        <span class="cd-label">Mins</span>
+      </div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-secs">00</span>
+        <span class="cd-label">Secs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ── WHAT IT IS ── -->
+<section class="what-it-is">
+  <div class="container">
+    <div class="what-body reveal">
+      <div class="section-rule"></div>
+      <p class="section-eyebrow">What is Irish Whiskey Night?</p>
+      <h2>Once a month,<br><em>Ireland pours together.</em></h2>
+      <p>Once a month, people across Ireland — and around the world — sit down to taste Irish whiskey <strong>together</strong>.</p>
+      <p>Three whiskeys. The makers behind them. One live experience.</p>
+      <p>Join with a tasting kit, or tune in and be part of it.</p>
+    </div>
+    <div class="what-visual reveal reveal-delay-1">
+      <div class="glass-icon-wrap">
+        <div class="glass-glow"></div>
+        <div class="three-glasses">
+          <!-- Glass 1 -->
+          <svg class="glass-svg" width="55" height="130" viewBox="0 0 55 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 15 L5 90 Q5 100 27.5 100 Q50 100 50 90 L45 15 Z" fill="rgba(201,125,42,0.15)" stroke="rgba(201,125,42,0.6)" stroke-width="1"/>
+            <path d="M10 15 L5 55 Q16 58 27.5 58 Q39 58 50 55 L45 15 Z" fill="rgba(201,125,42,0.3)"/>
+            <line x1="27.5" y1="100" x2="27.5" y2="120" stroke="rgba(201,125,42,0.5)" stroke-width="1.5"/>
+            <line x1="15" y1="120" x2="40" y2="120" stroke="rgba(201,125,42,0.5)" stroke-width="1.5"/>
+          </svg>
+          <!-- Glass 2 (tallest, center) -->
+          <svg class="glass-svg" width="55" height="145" viewBox="0 0 55 145" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 15 L5 100 Q5 112 27.5 112 Q50 112 50 100 L45 15 Z" fill="rgba(232,168,58,0.15)" stroke="rgba(232,168,58,0.7)" stroke-width="1"/>
+            <path d="M10 15 L5 60 Q16 64 27.5 64 Q39 64 50 60 L45 15 Z" fill="rgba(232,168,58,0.35)"/>
+            <line x1="27.5" y1="112" x2="27.5" y2="130" stroke="rgba(232,168,58,0.5)" stroke-width="1.5"/>
+            <line x1="15" y1="130" x2="40" y2="130" stroke="rgba(232,168,58,0.5)" stroke-width="1.5"/>
+          </svg>
+          <!-- Glass 3 -->
+          <svg class="glass-svg" width="55" height="130" viewBox="0 0 55 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 15 L5 90 Q5 100 27.5 100 Q50 100 50 90 L45 15 Z" fill="rgba(201,125,42,0.12)" stroke="rgba(201,125,42,0.55)" stroke-width="1"/>
+            <path d="M10 15 L5 45 Q16 48 27.5 48 Q39 48 50 45 L45 15 Z" fill="rgba(201,125,42,0.25)"/>
+            <line x1="27.5" y1="100" x2="27.5" y2="120" stroke="rgba(201,125,42,0.5)" stroke-width="1.5"/>
+            <line x1="15" y1="120" x2="40" y2="120" stroke="rgba(201,125,42,0.5)" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THIS MONTH'S LINEUP ── -->
+<section class="lineup" id="kit">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-rule"></div>
+      <p class="section-eyebrow">This Month's Lineup</p>
+      <h2>This Month's <em>Whiskeys</em></h2>
+    </div>
+
+    <div class="lineup-grid">
+      <!-- Whiskey 1 -->
+      <div class="whiskey-card reveal reveal-delay-1">
+        <p class="whiskey-num">Dram 01</p>
+        <svg class="bottle-svg" width="60" height="130" viewBox="0 0 60 130" xmlns="http://www.w3.org/2000/svg">
+          <rect x="22" y="4" width="16" height="14" rx="2" fill="rgba(201,125,42,0.4)" stroke="rgba(201,125,42,0.7)" stroke-width="1"/>
+          <path d="M18 18 Q10 30 10 45 L10 110 Q10 118 30 118 Q50 118 50 110 L50 45 Q50 30 42 18 Z" fill="rgba(201,125,42,0.12)" stroke="rgba(201,125,42,0.55)" stroke-width="1.2"/>
+          <path d="M18 18 Q10 30 10 45 L10 72 Q20 76 30 76 Q40 76 50 72 L50 45 Q50 30 42 18 Z" fill="rgba(201,125,42,0.28)"/>
+          <rect x="14" y="85" width="32" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(201,125,42,0.3)" stroke-width="0.8"/>
+        </svg>
+        <h3 class="whiskey-name">Redbreast 12</h3>
+        <p class="whiskey-desc">A rich, sherry-led classic</p>
+      </div>
+
+      <!-- Whiskey 2 -->
+      <div class="whiskey-card reveal reveal-delay-2">
+        <p class="whiskey-num">Dram 02</p>
+        <svg class="bottle-svg" width="60" height="130" viewBox="0 0 60 130" xmlns="http://www.w3.org/2000/svg">
+          <rect x="22" y="4" width="16" height="14" rx="2" fill="rgba(232,168,58,0.4)" stroke="rgba(232,168,58,0.7)" stroke-width="1"/>
+          <path d="M20 18 Q14 28 14 42 L14 110 Q14 118 30 118 Q46 118 46 110 L46 42 Q46 28 40 18 Z" fill="rgba(232,168,58,0.1)" stroke="rgba(232,168,58,0.55)" stroke-width="1.2"/>
+          <path d="M20 18 Q14 28 14 42 L14 65 Q22 69 30 69 Q38 69 46 65 L46 42 Q46 28 40 18 Z" fill="rgba(232,168,58,0.3)"/>
+          <rect x="16" y="80" width="28" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(232,168,58,0.3)" stroke-width="0.8"/>
+        </svg>
+        <h3 class="whiskey-name">Your Whiskey 2</h3>
+        <p class="whiskey-desc">Update with this month's dram</p>
+      </div>
+
+      <!-- Whiskey 3 -->
+      <div class="whiskey-card reveal reveal-delay-3">
+        <p class="whiskey-num">Dram 03</p>
+        <svg class="bottle-svg" width="60" height="130" viewBox="0 0 60 130" xmlns="http://www.w3.org/2000/svg">
+          <rect x="23" y="4" width="14" height="16" rx="2" fill="rgba(201,125,42,0.35)" stroke="rgba(201,125,42,0.65)" stroke-width="1"/>
+          <path d="M16 20 Q8 35 8 52 L8 110 Q8 120 30 120 Q52 120 52 110 L52 52 Q52 35 44 20 Z" fill="rgba(201,125,42,0.1)" stroke="rgba(201,125,42,0.5)" stroke-width="1.2"/>
+          <path d="M16 20 Q8 35 8 52 L8 78 Q18 83 30 83 Q42 83 52 78 L52 52 Q52 35 44 20 Z" fill="rgba(201,125,42,0.22)"/>
+          <rect x="12" y="90" width="36" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(201,125,42,0.28)" stroke-width="0.8"/>
+        </svg>
+        <h3 class="whiskey-name">Your Whiskey 3</h3>
+        <p class="whiskey-desc">Update with this month's dram</p>
+      </div>
+    </div>
+
+    <div class="lineup-cta reveal">
+      <p>Taste along with us on the night — delivered to your door.</p>
+      <a href="#" class="btn-primary"><span>Taste Along With Us → Get the Kit</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="how-it-works">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-rule"></div>
+      <p class="section-eyebrow">What Happens on the Night</p>
+      <h2>How the <em>Night Works</em></h2>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal reveal-delay-1">
+        <div class="step-connector"></div>
+        <div class="step-num">1</div>
+        <h3 class="step-title">The Pour</h3>
+        <p class="step-body">Taste 3 Irish whiskeys live, together — guided pour by pour.</p>
+      </div>
+
+      <div class="step reveal reveal-delay-2">
+        <div class="step-connector"></div>
+        <div class="step-num">2</div>
+        <h3 class="step-title">Meet the Makers</h3>
+        <p class="step-body">Hear directly from the people behind the bottles — their story, their craft.</p>
+      </div>
+
+      <div class="step reveal reveal-delay-3">
+        <div class="step-num">3</div>
+        <h3 class="step-title">The Conversation</h3>
+        <p class="step-body">Stories, questions, and what's happening in Irish whiskey right now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY PEOPLE JOIN ── -->
+<section class="why">
+  <div class="container">
+    <span class="quote-mark">"</span>
+    <div class="reveal">
+      <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
+      <p class="section-eyebrow" style="text-align:center;">Why People Love It</p>
+      <h2 style="margin-bottom:2.5rem;">Not a Webinar.<br><em>A Shared Moment.</em></h2>
+    </div>
+
+    <p class="why-copy reveal reveal-delay-1">
+      <strong>It's not a class. It's not a lecture.</strong><br>
+      It's good whiskey, good stories, and people enjoying it together.
+    </p>
+
+    <p class="why-detail reveal reveal-delay-2">
+      Some join from their kitchen. Some from their local pub.<br>
+      All part of the same night.
+    </p>
+
+    <div class="reveal reveal-delay-3">
+      <a href="#" class="btn-primary"><span>Get This Month's Kit</span></a>
+      &nbsp;&nbsp;
+      <a href="#" class="btn-secondary" id="why-livestream-btn" style="display:inline-block;margin-top:0.5rem;">Join the Livestream — Free</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER CTA ── -->
+<section class="footer-cta">
+  <div class="container reveal">
+    <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
+    <h2>Pour yourself in.<br><em>We'll see you Thursday.</em></h2>
+    <p>The last Thursday of every month. Ireland's own whiskey night.</p>
+    <a href="#" class="btn-primary"><span>Get This Month's Tasting Kit</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Irish Whiskey Night &nbsp;·&nbsp; <a href="#">irishwhiskeynight.com</a> &nbsp;·&nbsp; Made with love for Irish whiskey</p>
+</footer>
+
+<script>
+  // ── COUNTDOWN: next last-Thursday of current month at 8pm IST (UTC+1) ──
+  function getNextLastThursday() {
+    const now = new Date();
+    let year = now.getUTCFullYear();
+    let month = now.getUTCMonth();
+
+    function lastThursdayOf(y, m) {
+      const lastDay = new Date(Date.UTC(y, m + 1, 0));
+      const dow = lastDay.getUTCDay();
+      const diff = (dow >= 4) ? dow - 4 : dow + 3;
+      return new Date(Date.UTC(y, m, lastDay.getUTCDate() - diff, 19, 0, 0)); // 19:00 UTC = 20:00 IST
+    }
+
+    let candidate = lastThursdayOf(year, month);
+    // If already past this month's, move to next
+    if (now >= candidate) {
+      month += 1;
+      if (month > 11) { month = 0; year += 1; }
+      candidate = lastThursdayOf(year, month);
+    }
+    return candidate;
+  }
+
+  const eventDate = getNextLastThursday();
+
+  // Display date nicely
+  const dateOpts = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+  document.getElementById('event-date-display').textContent =
+    eventDate.toLocaleDateString('en-IE', dateOpts);
+
+  function tick() {
+    const now = new Date();
+    let diff = Math.max(0, Math.floor((eventDate - now) / 1000));
+
+    const days  = Math.floor(diff / 86400); diff -= days * 86400;
+    const hours = Math.floor(diff / 3600);  diff -= hours * 3600;
+    const mins  = Math.floor(diff / 60);    diff -= mins * 60;
+    const secs  = diff;
+
+    document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+  }
+
+  tick();
+  setInterval(tick, 1000);
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
