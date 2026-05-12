@@ -18,6 +18,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
+<!-- jQuery (required by Mailchimp's mc-validate.js) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- Mailchimp validation script -->
+<script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -361,6 +366,168 @@
   }
   h2 em { font-style: italic; color: var(--gold); }
 
+  /* ── MAILCHIMP SIGNUP STRIP ── */
+  .signup-strip {
+    background: var(--moss);
+    border-top: 1px solid rgba(201,125,42,0.25);
+    border-bottom: 1px solid rgba(201,125,42,0.25);
+    padding: 3.5rem 2rem;
+  }
+
+  .signup-strip .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .signup-strip-text {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .signup-strip-text p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .signup-strip-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--cream);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .signup-strip-text h3 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .signup-form-wrap {
+    flex: 1;
+    min-width: 280px;
+    max-width: 480px;
+  }
+
+  /* ── MAILCHIMP FORM STYLES (all instances) ── */
+  /* Override all Mailchimp defaults */
+  #mc_embed_signup,
+  #mc_embed_signup_2,
+  #mc_embed_signup_3 {
+    background: transparent !important;
+    font: inherit !important;
+    width: 100% !important;
+    clear: none !important;
+  }
+
+  .mc-form {
+    display: flex;
+    gap: 0;
+    width: 100%;
+  }
+
+  .mc-form .mc-email-input {
+    flex: 1;
+    background: rgba(13,26,18,0.7);
+    border: 1px solid rgba(201,125,42,0.35);
+    border-right: none;
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    padding: 0.9rem 1.2rem;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+    border-radius: 0;
+    min-width: 0;
+  }
+
+  .mc-form .mc-email-input::placeholder {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .mc-form .mc-email-input:focus {
+    border-color: rgba(201,125,42,0.7);
+    background: rgba(13,26,18,0.9);
+  }
+
+  .mc-form .mc-submit-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--amber);
+    color: var(--midnight);
+    border: none;
+    padding: 0.9rem 1.6rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+
+  .mc-form .mc-submit-btn:hover {
+    background: var(--gold);
+  }
+
+  /* Mailchimp response messages */
+  .mc-response {
+    margin-top: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    min-height: 1.2em;
+  }
+
+  .mc-response .mce-success-response {
+    color: var(--gold);
+    display: none;
+  }
+
+  .mc-response .mce-error-response {
+    color: #e87a5a;
+    display: none;
+  }
+
+  /* Honeypot (anti-spam, must stay hidden) */
+  .mc-honeypot { position: absolute; left: -5000px; }
+
+  /* ── INLINE SIGNUP SECTION (after lineup) ── */
+  .signup-section {
+    background: var(--forest);
+    border-top: 1px solid rgba(201,125,42,0.12);
+    border-bottom: 1px solid rgba(201,125,42,0.12);
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+
+  .signup-section .container {
+    max-width: 680px;
+  }
+
+  .signup-section p.lead {
+    font-size: 1.2rem;
+    color: var(--smoke);
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .signup-section .mc-form {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
   /* ── WHAT IT IS ── */
   .what-it-is { background: var(--forest); }
 
@@ -619,10 +786,29 @@
     margin: 0 auto;
   }
 
-  /* ── FOOTER CTA ── */
+  /* ── FOOTER CTA with embedded signup ── */
   .footer-cta { background: var(--forest); text-align: center; padding: 6rem 2rem; }
   .footer-cta h2 { margin-bottom: 1rem; }
-  .footer-cta p { font-size: 1.2rem; color: var(--muted); font-style: italic; margin-bottom: 2.5rem; }
+  .footer-cta > .container > p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-signup-wrap {
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .footer-signup-wrap .signup-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
 
   /* ── FOOTER ── */
   footer {
@@ -666,12 +852,17 @@
     .cta-row { flex-direction: column; align-items: center; }
     .cta-row .btn-primary,
     .cta-row .btn-secondary { width: 100%; max-width: 340px; }
+    .signup-strip .container { flex-direction: column; text-align: center; }
+    .signup-form-wrap { max-width: 100%; width: 100%; }
   }
 
   @media (max-width: 600px) {
     section { padding: 5rem 1.5rem; }
     .cd-unit { min-width: 56px; padding: 0.5rem 0.7rem; }
     .cd-num { font-size: 1.5rem; }
+    .mc-form { flex-direction: column; }
+    .mc-form .mc-email-input { border-right: 1px solid rgba(201,125,42,0.35); border-bottom: none; }
+    .mc-form .mc-submit-btn { width: 100%; }
   }
 </style>
 </head>
@@ -727,6 +918,40 @@
     <div class="scroll-arrow"></div>
   </div>
 </section>
+
+
+<!-- ══════════════════════════════════════════
+     SIGNUP #1 — Below Hero (Strip style)
+     "Don't miss the next one" nudge
+══════════════════════════════════════════ -->
+<div class="signup-strip reveal">
+  <div class="container">
+    <div class="signup-strip-text">
+      <p>Never miss a night</p>
+      <h3>Get notified before<br><em>each event</em></h3>
+    </div>
+    <div class="signup-form-wrap">
+      <form action="https://threedrams.us20.list-manage.com/subscribe/post?u=59057c2b84551a82e8dcb9ec2&amp;id=19520a6945&amp;f_id=007603eef0"
+            method="post"
+            id="mc-embedded-subscribe-form-1"
+            name="mc-embedded-subscribe-form"
+            class="validate mc-form"
+            target="_blank"
+            novalidate>
+        <input type="hidden" name="tags" value="4237419">
+        <input type="email" name="EMAIL" class="required email mc-email-input" id="mce-EMAIL-1" required placeholder="Your email address">
+        <!-- Honeypot anti-spam field — do not remove -->
+        <div class="mc-honeypot" aria-hidden="true"><input type="text" name="b_59057c2b84551a82e8dcb9ec2_19520a6945" tabindex="-1" value=""></div>
+        <input type="submit" value="Notify Me" name="subscribe" class="mc-submit-btn">
+      </form>
+      <div class="mc-response">
+        <div class="mce-success-response" id="mce-success-response-1">You're on the list — see you on the night.</div>
+        <div class="mce-error-response" id="mce-error-response-1"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- ── WHAT IT IS ── -->
 <section class="what-it-is">
@@ -785,7 +1010,7 @@
           <path d="M18 18 Q10 30 10 45 L10 72 Q20 76 30 76 Q40 76 50 72 L50 45 Q50 30 42 18 Z" fill="rgba(201,125,42,0.28)"/>
           <rect x="14" y="85" width="32" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(201,125,42,0.3)" stroke-width="0.8"/>
         </svg>
-        <h3 class="whiskey-name">Jameosn Black Barrel</h3>
+        <h3 class="whiskey-name">Jameson Black Barrel</h3>
         <p class="whiskey-desc">A rich, smooth blend matured in double-charred barrels, delivering creamy toffee, vanilla sweetness, and warming spice with a nutty depth.</p>
       </div>
 
@@ -810,16 +1035,49 @@
           <rect x="12" y="90" width="36" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(201,125,42,0.28)" stroke-width="0.8"/>
         </svg>
         <h3 class="whiskey-name">Copeland Distillery Surprise</h3>
-        <p class="whiskey-desc">A chance to sample the next Irish whiskey Copeland Distillery brings to the market before it is even bottled and labeled</p>
+        <p class="whiskey-desc">A chance to sample the next Irish whiskey Copeland Distillery brings to the market before it is even bottled and labeled.</p>
       </div>
     </div>
 
     <div class="lineup-cta reveal">
-      <p>Most people taste while they watch Get the three drams delivered and pour along with the makers live.</p>
+      <p>Most people taste while they watch. Get the three drams delivered and pour along with the makers live.</p>
       <a href="https://threedrams.com/ie/join-the-club/" class="btn-primary"><span>Taste Along With Us → Get the Kit</span></a>
     </div>
   </div>
 </section>
+
+
+<!-- ══════════════════════════════════════════
+     SIGNUP #2 — After Lineup
+     Catch people interested in the whiskeys but not ready to buy a kit
+══════════════════════════════════════════ -->
+<section class="signup-section reveal">
+  <div class="container">
+    <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
+    <p class="section-eyebrow" style="text-align:center;">Stay in the loop</p>
+    <h2 style="margin-bottom:1rem;">Not ready yet?<br><em>We'll remind you.</em></h2>
+    <p class="lead">Drop your email and we'll let you know before the next Irish Whiskey Night — no spam, just the date and the drams.</p>
+
+    <form action="https://threedrams.us20.list-manage.com/subscribe/post?u=59057c2b84551a82e8dcb9ec2&amp;id=19520a6945&amp;f_id=007603eef0"
+          method="post"
+          id="mc-embedded-subscribe-form-2"
+          name="mc-embedded-subscribe-form"
+          class="validate mc-form"
+          target="_blank"
+          novalidate>
+      <input type="hidden" name="tags" value="4237419">
+      <input type="email" name="EMAIL" class="required email mc-email-input" id="mce-EMAIL-2" required placeholder="Your email address">
+      <!-- Honeypot anti-spam field — do not remove -->
+      <div class="mc-honeypot" aria-hidden="true"><input type="text" name="b_59057c2b84551a82e8dcb9ec2_19520a6945" tabindex="-1" value=""></div>
+      <input type="submit" value="Keep Me Posted" name="subscribe" class="mc-submit-btn">
+    </form>
+    <div class="mc-response" style="text-align:center;">
+      <div class="mce-success-response" id="mce-success-response-2">You're on the list — see you on the night.</div>
+      <div class="mce-error-response" id="mce-error-response-2"></div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ── HOW IT WORKS ── -->
 <section class="how-it-works">
@@ -904,7 +1162,7 @@
         <p class="choice-kicker">Recommended</p>
         <h3>Taste Along Properly</h3>
         <p>Get this month's tasting kit from Three Drams and taste each whiskey with the makers as they guide you through the night.</p>
-        <p class="choice-note">It's a chance to enjoy a few whiskeys with the very people made them.</p>
+        <p class="choice-note">It's a chance to enjoy a few whiskeys with the very people who made them.</p>
         <div class="btn-wrap">
           <a href="https://threedrams.com/ie/join-the-club/" class="btn-primary"><span>Get This Month's Kit</span></a>
         </div>
@@ -933,12 +1191,38 @@
   </div>
 </section>
 
-<!-- ── FOOTER CTA ── -->
+<!-- ── FOOTER CTA with embedded signup #3 ── -->
 <section class="footer-cta">
   <div class="container reveal">
     <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
     <h2>Don't miss this month's<br><em>Irish Whiskey Night.</em></h2>
     <p>The last Thursday of every month. Join live — or taste along properly.</p>
+
+    <!-- ══════════════════════════════════════════
+         SIGNUP #3 — Footer CTA
+         Last chance capture before they leave
+    ══════════════════════════════════════════ -->
+    <div class="footer-signup-wrap">
+      <p class="signup-note">Get event reminders by email</p>
+      <form action="https://threedrams.us20.list-manage.com/subscribe/post?u=59057c2b84551a82e8dcb9ec2&amp;id=19520a6945&amp;f_id=007603eef0"
+            method="post"
+            id="mc-embedded-subscribe-form-3"
+            name="mc-embedded-subscribe-form"
+            class="validate mc-form"
+            target="_blank"
+            novalidate>
+        <input type="hidden" name="tags" value="4237419">
+        <input type="email" name="EMAIL" class="required email mc-email-input" id="mce-EMAIL-3" required placeholder="Your email address">
+        <!-- Honeypot anti-spam field — do not remove -->
+        <div class="mc-honeypot" aria-hidden="true"><input type="text" name="b_59057c2b84551a82e8dcb9ec2_19520a6945" tabindex="-1" value=""></div>
+        <input type="submit" value="Remind Me" name="subscribe" class="mc-submit-btn">
+      </form>
+      <div class="mc-response" style="text-align:center;">
+        <div class="mce-success-response" id="mce-success-response-3">You're on the list — see you on the night.</div>
+        <div class="mce-error-response" id="mce-error-response-3"></div>
+      </div>
+    </div>
+
     <div class="cta-row" style="justify-content:center;">
       <a href="https://threedrams.com/ie/join-the-club/" class="btn-primary"><span>Get This Month's Tasting Kit</span></a>
       <a href="https://threedrams.com/ie/live-tastings/" class="btn-secondary">Watch Live — Free</a>
@@ -952,6 +1236,7 @@
 </footer>
 
 <script>
+  /* ── COUNTDOWN ── */
   function getNextLastThursday() {
     const now = new Date();
     let year = now.getUTCFullYear();
@@ -994,6 +1279,7 @@
   tick();
   setInterval(tick, 1000);
 
+  /* ── SCROLL REVEAL ── */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
@@ -1001,6 +1287,68 @@
   }, { threshold: 0.12 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── MAILCHIMP FORM HANDLING ──
+     Intercepts each form submit, posts via fetch to avoid a full page redirect,
+     and shows the inline success / error message instead.
+  ── */
+  (function() {
+    const forms = document.querySelectorAll('form[id^="mc-embedded-subscribe-form"]');
+
+    forms.forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formNum = form.id.replace('mc-embedded-subscribe-form-', '');
+        const emailInput = form.querySelector('input[type="email"]');
+        const successEl  = document.getElementById('mce-success-response-' + formNum);
+        const errorEl    = document.getElementById('mce-error-response-' + formNum);
+
+        if (!emailInput || !emailInput.value) {
+          if (errorEl) { errorEl.textContent = 'Please enter your email address.'; errorEl.style.display = 'block'; }
+          return;
+        }
+
+        // Build a JSONP URL (Mailchimp doesn't support CORS on the POST endpoint,
+        // but their /subscribe/post-json endpoint with c= callback does work cross-origin).
+        const actionUrl = form.action.replace('/post?', '/post-json?');
+        const params = new URLSearchParams(new FormData(form));
+        params.set('c', 'mcCallback_' + formNum);
+
+        // Define the callback
+        window['mcCallback_' + formNum] = function(data) {
+          if (data.result === 'success') {
+            if (successEl) { successEl.style.display = 'block'; }
+            if (errorEl)   { errorEl.style.display = 'none'; }
+            emailInput.value = '';
+          } else {
+            const msg = data.msg ? data.msg.replace(/^\d+ - /, '') : 'Something went wrong. Please try again.';
+            if (errorEl)   { errorEl.textContent = msg; errorEl.style.display = 'block'; }
+            if (successEl) { successEl.style.display = 'none'; }
+          }
+          // Clean up the script tag
+          const script = document.getElementById('mc-jsonp-' + formNum);
+          if (script) script.parentNode.removeChild(script);
+        };
+
+        // Inject script tag for JSONP
+        const script = document.createElement('script');
+        script.id  = 'mc-jsonp-' + formNum;
+        script.src = actionUrl + '&' + params.toString();
+        document.body.appendChild(script);
+      });
+    });
+  })();
+
+  /* ── Mailchimp field map (required by mc-validate.js) ── */
+  (function($) {
+    window.fnames = new Array();
+    window.ftypes = new Array();
+    fnames[0]='EMAIL'; ftypes[0]='email';
+    fnames[1]='FNAME'; ftypes[1]='text';
+    fnames[2]='LNAME'; ftypes[2]='text';
+  }(jQuery));
+  var $mcj = jQuery.noConflict(true);
 </script>
 </body>
 </html>
