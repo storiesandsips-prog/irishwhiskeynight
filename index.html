@@ -264,6 +264,24 @@
     font-style: italic;
   }
 
+  /* Prominent livestream start time */
+  .event-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--gold);
+    background: rgba(232,168,58,0.08);
+    border: 1px solid rgba(232,168,58,0.4);
+    padding: 0.55rem 1.5rem;
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.01em;
+  }
+  .event-time svg { flex-shrink: 0; }
+
   .countdown {
     display: flex;
     gap: 0.5rem;
@@ -860,6 +878,7 @@
     section { padding: 5rem 1.5rem; }
     .cd-unit { min-width: 56px; padding: 0.5rem 0.7rem; }
     .cd-num { font-size: 1.5rem; }
+    .event-time { font-size: 1.35rem; padding: 0.5rem 1.2rem; }
     .mc-form { flex-direction: column; }
     .mc-form .mc-email-input { border-right: 1px solid rgba(201,125,42,0.35); border-bottom: none; }
     .mc-form .mc-submit-btn { width: 100%; }
@@ -897,8 +916,15 @@
   </div>
 
   <div class="hero-urgency">
-    <p class="event-label">Next Event, Thursday May 28th, 8pm Irish time</p>
+    <p class="event-label">Next Event</p>
     <p class="event-date" id="event-date-display">Loading…</p>
+    <div class="event-time">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke="var(--gold)" stroke-width="1.6"/>
+        <path d="M12 7.2V12L15 14" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      8PM Irish Time
+    </div>
     <div style="display:flex;align-items:center;gap:0.4rem;justify-content:center;margin-bottom:0.5rem;">
       <span style="font-family:'DM Mono',monospace;font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Live in:</span>
     </div>
@@ -1010,8 +1036,8 @@
           <path d="M18 18 Q10 30 10 45 L10 72 Q20 76 30 76 Q40 76 50 72 L50 45 Q50 30 42 18 Z" fill="rgba(201,125,42,0.28)"/>
           <rect x="14" y="85" width="32" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(201,125,42,0.3)" stroke-width="0.8"/>
         </svg>
-        <h3 class="whiskey-name">Jameson Black Barrel</h3>
-        <p class="whiskey-desc">A rich, smooth blend matured in double-charred barrels, delivering creamy toffee, vanilla sweetness, and warming spice with a nutty depth.</p>
+        <h3 class="whiskey-name">Mad Marquess</h3>
+        <p class="whiskey-desc">A bold, party-ready blended Irish whiskey named after the Marquess of Waterford who inspired "painting the town red," bursting with pineapple, vanilla and caramel.</p>
       </div>
 
       <div class="whiskey-card reveal reveal-delay-2">
@@ -1022,8 +1048,8 @@
           <path d="M20 18 Q14 28 14 42 L14 65 Q22 69 30 69 Q38 69 46 65 L46 42 Q46 28 40 18 Z" fill="rgba(232,168,58,0.3)"/>
           <rect x="16" y="80" width="28" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(232,168,58,0.3)" stroke-width="0.8"/>
         </svg>
-        <h3 class="whiskey-name">Hyde No. 8 Heritage Cask</h3>
-        <p class="whiskey-desc">A stout-cask-finished blend combining bourbon- and sherry-matured whiskeys, offering malty coffee notes, dark chocolate, spice, and a slightly hoppy, complex finish.</p>
+        <h3 class="whiskey-name">Black's 8 Year Old Single Malt</h3>
+        <p class="whiskey-desc">An 8-year-old single malt from Black's of Kinsale, finished in IPA beer casks for a distinctively hopped, malty character; a non-chill-filtered limited edition.</p>
       </div>
 
       <div class="whiskey-card reveal reveal-delay-3">
@@ -1034,8 +1060,8 @@
           <path d="M16 20 Q8 35 8 52 L8 78 Q18 83 30 83 Q42 83 52 78 L52 52 Q52 35 44 20 Z" fill="rgba(201,125,42,0.22)"/>
           <rect x="12" y="90" width="36" height="18" rx="1" fill="rgba(255,255,255,0.06)" stroke="rgba(201,125,42,0.28)" stroke-width="0.8"/>
         </svg>
-        <h3 class="whiskey-name">Copeland Distillery Surprise</h3>
-        <p class="whiskey-desc">A chance to sample the next Irish whiskey Copeland Distillery brings to the market before it is even bottled and labeled.</p>
+        <h3 class="whiskey-name">Boann Legacy</h3>
+        <p class="whiskey-desc">Boann's single pot still, aged three and a half to five and a half years and married across seven cask types, from American and French oak through a sherry quartet of Oloroso, PX, Palo Cortado and Amontillado to sweet Moscatel, at an easy 40% ABV.</p>
       </div>
     </div>
 
@@ -1177,7 +1203,7 @@
     <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
     <p class="section-eyebrow" style="text-align:center;">Watch Live</p>
     <h2>Join the Next <em>Irish Whiskey Night</em></h2>
-    <p>Join the livestream on the last Thursday of every month. Find all the links and details below.</p>
+    <p>Join the livestream on the last Thursday of every month at 8PM Irish time. Find all the links and details below.</p>
     <div class="cta-row" style="justify-content:center;">
       <a href="https://threedrams.com/ie/live-tastings/" class="btn-primary"><span>Join the Livestream — Free</span></a>
     </div>
@@ -1196,7 +1222,7 @@
   <div class="container reveal">
     <div class="section-rule" style="margin: 0 auto 1.5rem;"></div>
     <h2>Don't miss this month's<br><em>Irish Whiskey Night.</em></h2>
-    <p>The last Thursday of every month. Join live — or taste along properly.</p>
+    <p>The last Thursday of every month, 8PM Irish time. Join live — or taste along properly.</p>
 
     <!-- ══════════════════════════════════════════
          SIGNUP #3 — Footer CTA
